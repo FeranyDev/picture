@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.picture.mapper.ImageMapper">
+    <insert id="addImage">
+        INSERT INTO account.images VALUES (#{image.id}, #{image.name}, #{image.sha256}, default, default, default)
+    </insert>
+    <insert id="createContact">
+        INSERT INTO account.users_images VALUES (default, #{param1}, #{param2}, default, #{param3})
+    </insert>
+    <select id="getIdBySHA256" resultType="java.lang.String">
+        SELECT id FROM account.images WHERE sha_256 = #{SHA256}
+    </select>
+    <select id="getAllImages" resultType="java.lang.String">
+        SELECT name FROM account.images
+    </select>
+    <select id="checkImageByUserAndSHA256" resultType="java.lang.Integer">
+        SELECT count(*) FROM account.images, account.users_images WHERE user_id = #{param1} AND sha_256 = #{param2} AND images.id = users_images.image_id
+    </select>
+    <select id="checkContact" resultType="java.lang.Integer">
+        SELECT count(*) FROM account.users_images WHERE image_id = #{param1} AND user_id = #{param2}
+    </select>
+    <select id="getFilenameById" resultType="java.lang.String">
+        SELECT name FROM account.images WHERE id = #{id}
+    </select>
+    <select id="getImage" resultType="java.lang.String">
+        SELECT name FROM account.images ORDER BY random() LIMIT 1
+    </select>
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.picture.mapper.UserMapper">
+    <insert id="createUser" parameterType="com.example.picture.dto.CreateUserDto">
+        INSERT INTO account.users VALUES (default, #{username}, #{nickname}, #{email}, #{password}, 'normal', default, default, default)
+    </insert>
+    <update id="updatePassword">
+        UPDATE account.users SET password = #{password} WHERE id = #{uuid}
+    </update>
+    <update id="updateUsername">
+        UPDATE account.users SET username = #{username} WHERE id = #{uuid}
+    </update>
+    <update id="updateNickname">
+        UPDATE account.users SET nickname = #{nickname} WHERE id = #{uuid}
+    </update>
+    <update id="updateEmail">
+        UPDATE account.users SET email = #{email} WHERE id = #{uuid}
+    </update>
+    <update id="resetPasswordByEmail">
+        UPDATE account.users SET password = #{password} WHERE email = #{email}
+    </update>
+    <select id="login" parameterType="com.example.picture.dto.LoginDto" resultType="String">
+        SELECT id FROM account.users WHERE username = #{username} AND password = #{password}
+    </select>
+    <select id="getUserInfoByUUID" resultType="com.example.picture.pojo.User">
+        SELECT * FROM account.users WHERE id = #{uuid}
+    </select>
+    <select id="getUserStatusByUUID" resultType="java.lang.String">
+        SELECT status FROM account.users WHERE id =#{uuid}
+    </select>
+    <select id="checkUsername" resultType="java.lang.Boolean">
+        SELECT COUNT(*) account.users WHERE username = #{username}
+    </select>
+    <select id="checkNickname" resultType="java.lang.Boolean">
+        SELECT COUNT(*) account.users WHERE nickname = #{nickname}
+    </select>
+    <select id="checkEmail" resultType="java.lang.Boolean">
+        SELECT COUNT(*) account.users WHERE email = #{email}
+    </select>
+    <select id="checkUsernameAndEmail" resultType="java.lang.Boolean">
+        SELECT COUNT(*) account.users WHERE email = #{email} AND username = #{username}
+    </select>
+    <select id="checkEmailAndPassword" resultType="java.lang.Boolean">
+        SELECT COUNT(*) account.users WHERE email = #{email} AND password = #{password}
+    </select>
+    <select id="gerEmailByUUID" resultType="java.lang.String">
+        SELECT email FROM account.users WHERE id = #{uuid}
+    </select>
+
+</mapper>

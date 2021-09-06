@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.picture.mapper.SessionMapper">
+    <insert id="login" parameterType="com.example.picture.pojo.Session" keyColumn="boolean">
+        INSERT INTO account.sessions VALUES (default, #{user_id}, #{value}, default, #{ip}, default, default, default, default)
+    </insert>
+    <update id="logout" keyColumn="boolean">
+        UPDATE account.sessions SET expired_at = NOW(),
+                                    status = 'offline'
+        WHERE value = #{value} AND
+              status = 'online' AND
+              expired_at > NOW()
+    </update>
+</mapper>

@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    druid:
+      url: jdbc:postgresql://localhost:5432/YogurtCloud?stringtype=unspecified
+      username: postgres
+      password: password
+      driver-class-name: org.postgresql.Driver
+      initial-size: 1
+      min-idle: 1
+      max-active: 20
+      test-on-borrow: true
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-return: true
+      pool-prepared-statements: true
+      filters: stat, wall, log4j2
+      max-pool-prepared-statement-per-connection-size: 20
+      use-global-data-source-stat: true
+      connection-properties: druid.stat.mergeSql=true; druid.stat.slowSqlMillis=500
